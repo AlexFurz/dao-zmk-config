@@ -1,1 +1,127 @@
-boards/arm/dao/dao.keymap
+/*
+ * Copyright (c) 2021 Rafael Yumagulov
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+
+#define DEF 0
+#define LWR 1
+#define RSE 2
+#define ADJ 3
+
+&lt { quick_tap_ms = <200>; };
+
+&mt { quick_tap_ms = <200>; };
+
+/ {
+    chosen {
+        zmk,matrix_transform = &default_transform;
+
+        // zmk,matrix_transform = &extra_keys_transform;
+    };
+};
+
+/ {
+    behaviors {
+        M_RightBracket: M_RightBracket {
+            compatible = "zmk,behavior-tap-dance";
+            label = "M_RIGHTBRACKET";
+            #binding-cells = <0>;
+            bindings = <&kp M>, <&kp RIGHT_BRACKET>;
+        };
+
+        CMD_switchLang: CMD_switchLang {
+            compatible = "zmk,behavior-tap-dance";
+            label = "CMD_SWITCHLANG";
+            #binding-cells = <0>;
+            bindings = <&kp LGUI>, <&kp LG(SPACE)>;
+        };
+
+        Tild_CTRLTild: Tild_CTRLTild {
+            compatible = "zmk,behavior-tap-dance";
+            label = "TILD_CTRLTILD";
+            #binding-cells = <0>;
+            bindings = <&kp TILDE>, <&kp LC(TILDE)>;
+        };
+
+        Esc_CmdAltEsc: Esc_CmdAltEsc {
+            compatible = "zmk,behavior-tap-dance";
+            label = "ESC_CMDALTESC";
+            #binding-cells = <0>;
+            bindings = <&kp ESC>, <&EscMacro>;
+        };
+    };
+
+    macros {
+        EscMacro: EscMacro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings =
+                <&macro_press>,
+                <&kp LGUI &kp LALT>,
+                <&macro_tap>,
+                <&kp ESC>,
+                <&macro_release>,
+                <&kp LGUI &kp LALT>;
+
+            label = "ESCMACRO";
+        };
+    };
+
+    combos {
+        compatible = "zmk,combos";
+
+        EscComboRight {
+            bindings = <&kp ESC>;
+            key-positions = <19 20>;
+        };
+
+        EscComboLeft {
+            bindings = <&kp ESC>;
+            key-positions = <15 16>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            bindings = <
+&kp TAB    &kp Q  &kp W  &kp E           &kp R             &kp T        &kp Y        &kp U          &kp I        &kp O    &kp P     &kp LBKT
+&kp LSHFT  &kp A  &kp S  &kp D           &kp F             &kp G        &kp H        &kp J          &kp K        &kp L    &kp SEMI  &mt RIGHT_SHIFT SINGLE_QUOTE
+&kp LCTRL  &kp Z  &kp X  &kp C           &kp V             &kp B        &kp N        &kp M          &kp COMMA    &kp DOT  &kp FSLH  &kp RIGHT_CONTROL
+                         &mt LALT ENTER  &kp LEFT_COMMAND  &lt 1 SPACE  &lt 2 SPACE  &kp BACKSPACE  &lt 3 ENTER
+            >;
+        };
+
+        lower_layer {
+            bindings = <
+&Esc_CmdAltEsc  &kp EXCLAMATION  &kp AT_SIGN  &kp HASH  &kp DOLLAR  &kp PERCENT  &kp CARET       &kp AMPERSAND  &kp ASTERISK    &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp BSPC
+&trans          &kp F5           &kp F6       &kp F7    &kp F9      &kp F10      &kp MINUS       &kp PLUS       &kp LEFT_BRACE  &kp RIGHT_BRACE       &kp PIPE               &kp TILDE
+&trans          &kp F2           &kp F3       &kp F4    &none       &kp F12      &kp UNDERSCORE  &kp EQUAL      &kp LBKT        &kp RBKT              &kp BSLH               &Tild_CTRLTild
+                                              &trans    &trans      &trans       &trans          &trans         &trans
+            >;
+        };
+
+        raise_layer {
+            bindings = <
+&trans  &kp N1  &kp N2  &kp N3  &kp N4  &kp N5  &kp N6    &kp N7     &kp N8     &kp N9     &kp N0     &kp BSPC
+&trans  &none   &none   &none   &none   &none   &kp LEFT  &kp DOWN   &kp UP     &kp RIGHT  &none      &kp DELETE
+&trans  &none   &none   &none   &none   &none   &kp END   &kp PG_DN  &kp PG_UP  &kp HOME   &kp COMMA  &kp DOT
+                        &trans  &trans  &trans  &trans    &trans     &trans
+            >;
+        };
+
+        adjust_layer {
+            bindings = <
+&none  &none  &none  &none   &none   &none   &kp C_BRIGHTNESS_INC  &kp C_VOLUME_UP    &none       &none   &none  &none
+&none  &none  &none  &none   &none   &none   &kp C_BRIGHTNESS_DEC  &kp C_VOLUME_DOWN  &none       &none   &none  &none
+&none  &none  &none  &none   &none   &none   &kp C_PREVIOUS        &kp C_PLAY         &kp C_NEXT  &trans  &none  &none
+                     &trans  &trans  &trans  &trans                &trans             &trans
+            >;
+        };
+    };
+};
