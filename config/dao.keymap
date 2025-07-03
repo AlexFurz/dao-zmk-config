@@ -117,9 +117,9 @@
 
         adjust_layer {
             bindings = <
-&none  &none  &none  &none   &none   &none   &kp C_BRIGHTNESS_INC  &kp C_VOLUME_UP    &none       &none   &none  &none
-&none  &none  &none  &none   &none   &none   &kp C_BRIGHTNESS_DEC  &kp C_VOLUME_DOWN  &none       &none   &none  &none
-&none  &none  &none  &none   &none   &none   &kp C_PREVIOUS        &kp C_PLAY         &kp C_NEXT  &trans  &none  &none
+&none  &none  &none  &none   &none   &none   &kp C_BRIGHTNESS_INC  &kp C_VOLUME_UP    &none       &none  &none  &none
+&none  &none  &none  &none   &none   &none   &kp C_BRIGHTNESS_DEC  &kp C_VOLUME_DOWN  &none       &none  &none  &none
+&none  &none  &none  &none   &none   &none   &kp C_PREVIOUS        &kp C_PLAY         &kp C_NEXT  &none  &none  &none
                      &trans  &trans  &trans  &trans                &trans             &trans
             >;
         };
